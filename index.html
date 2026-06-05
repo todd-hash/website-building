@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premier Senior Resource — Landing Pages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal: #1A6860;
+      --gold: #C49A2E;
+      --dark: #0C1E1B;
+      --cream: #F4EFE6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--dark);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .logo {
+      width: 180px;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .rule {
+      width: 100%;
+      max-width: 480px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--teal), transparent);
+      margin: 2rem auto;
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: rgba(26, 104, 96, 0.08);
+      border: 1px solid rgba(26, 104, 96, 0.3);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      width: 260px;
+      text-decoration: none;
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  border-color 0.2s ease,
+                  box-shadow 0.2s ease;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3),
+                  0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(196, 154, 46, 0.5);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(196, 154, 46, 0.15);
+    }
+
+    .card:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .card:active {
+      transform: translateY(-1px);
+    }
+
+    .card-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.3;
+      color: var(--cream);
+    }
+
+    .card-desc {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: rgba(244, 239, 230, 0.6);
+    }
+
+    .card-arrow {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--gold);
+      opacity: 0.7;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(4px);
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      font-size: 0.75rem;
+      color: rgba(244, 239, 230, 0.3);
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="brand-assets/Secondary Logo.png" alt="Premier Senior Resource" class="logo">
+
+  <p class="eyebrow">Landing Pages</p>
+
+  <h1>Premier Senior Resource</h1>
+
+  <div class="rule"></div>
+
+  <div class="cards">
+    <a href="landing-page-1/index.html" class="card">
+      <span class="card-label">Page 01</span>
+      <span class="card-title">Aging in Place Support</span>
+      <span class="card-desc">Full-service editorial landing page covering safety, planning, benefits, and services.</span>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a href="landing-page-2/F1-P1-senior-transitions.html" class="card">
+      <span class="card-label">Page 02</span>
+      <span class="card-title">Senior Transitions</span>
+      <span class="card-desc">Is it time for Mom or Dad's next chapter? A focused guide for families navigating transitions.</span>
+      <span class="card-arrow">→</span>
+    </a>
+  </div>
+
+  <footer>© Premier Senior Resource</footer>
+
+</body>
+</html>
