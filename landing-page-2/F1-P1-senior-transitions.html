@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Is It Time for Mom or Dad's Next Chapter? | Premier Senior Resource</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/great-vibes" rel="stylesheet" />
+  <style>
+    :root {
+      --teal:   #1A6860;
+      --teal-d: #124d47;
+      --teal-l: #2a8a80;
+      --gold:   #C49A2E;
+      --gold-l: #d9b04a;
+      --dark:   #0C1E1B;
+      --cream:  #F4EFE6;
+      --cream-d:#e8e1d2;
+      --text:   #1c2e2b;
+      --muted:  #567470;
+      --border: rgba(26,104,96,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text); -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 900; letter-spacing: -0.02em; }
+    .script { font-family: 'Great Vibes', cursive; }
+
+    /* ── Scroll reveal — spring-eased fade-up ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+        transform 0.72s cubic-bezier(0.16,1,0.3,1);
+      will-change: transform, opacity;
+    }
+    .reveal.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+    .d5 { transition-delay: 0.40s; }
+    .d6 { transition-delay: 0.48s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Form inputs ── */
+    .inp {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 4px;
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--text);
+      background: #fff; outline: none;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+    .inp:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(26,104,96,0.1); }
+    .inp::placeholder { color: #b0bbb9; }
+    .inp-dark {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(244,239,230,0.18);
+      color: var(--cream);
+    }
+    .inp-dark:focus { border-color: var(--teal-l); box-shadow: 0 0 0 3px rgba(26,104,96,0.25); }
+    .inp-dark::placeholder { color: rgba(244,239,230,0.35); }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      width: 100%; background: var(--gold); color: #fff;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.9375rem 1.5rem; border-radius: 12px; border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(196,154,46,0.35);
+      transition: background 180ms ease, transform 140ms ease, box-shadow 180ms ease;
+    }
+    .btn-gold:hover { background: var(--gold-l); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(196,154,46,0.4); }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-gold:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    .btn-teal {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal); color: #fff;
+      font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem;
+      padding: 0.6rem 1.25rem; border-radius: 12px; border: none; cursor: pointer;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(26,104,96,0.3);
+      transition: background 180ms ease, transform 140ms ease;
+    }
+    .btn-teal:hover { background: var(--teal-d); transform: translateY(-1px); }
+    .btn-teal:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    /* ── Badge chip ── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.3rem 0.75rem; border-radius: 999px;
+      border: 1.5px solid rgba(26,104,96,0.18);
+      background: rgba(26,104,96,0.06);
+      font-size: 0.75rem; font-weight: 600; color: var(--teal);
+      white-space: nowrap;
+    }
+
+    /* ── Shadows ── */
+    .shadow-card {
+      box-shadow: 0 2px 4px rgba(12,30,27,0.04), 0 6px 18px rgba(12,30,27,0.08), 0 16px 32px rgba(12,30,27,0.05);
+    }
+
+    /* ── Eyebrow ── */
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── Check item ── */
+    .check-row { display: flex; align-items: flex-start; gap: 0.625rem; font-size: 0.9375rem; font-weight: 500; }
+    .check-dot {
+      flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--teal); display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+
+    /* ── Step card hover ── */
+    .step-card {
+      position: relative; overflow: hidden;
+      transition: background 220ms ease, border-color 220ms ease;
+      cursor: default;
+    }
+    .step-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      transform: scaleX(0); transform-origin: left center;
+      transition: transform 400ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .step-card:hover::after { transform: scaleX(1); }
+    .step-card:hover { background: rgba(244,239,230,0.09) !important; border-color: rgba(244,239,230,0.22) !important; }
+    .step-card-gold::after { background: linear-gradient(to right, var(--gold), rgba(196,154,46,0.1)); }
+    .step-card-gold:hover { background: rgba(196,154,46,0.16) !important; border-color: rgba(196,154,46,0.34) !important; }
+
+    /* ── Pain card hover ── */
+    .pain-card {
+      position: relative; overflow: hidden;
+      transition: transform 320ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 280ms ease;
+      cursor: default;
+    }
+    .pain-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--teal); border-radius: 4px 0 0 4px;
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 360ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .pain-card:hover::before { transform: scaleY(1); }
+    .pain-card:hover {
+      transform: translateY(-5px) rotate(0.3deg);
+      box-shadow: 0 10px 28px rgba(26,104,96,0.13), 0 24px 52px rgba(26,104,96,0.07) !important;
+    }
+
+    /* ── Testimonial card hover ── */
+    .testi-card {
+      position: relative; overflow: hidden;
+      transition: transform 320ms cubic-bezier(0.34,1.56,0.64,1);
+      cursor: default;
+    }
+    .testi-card::before {
+      content: '\201C';
+      position: absolute; top: 0; left: 1.125rem;
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: 6.5rem; line-height: 1;
+      color: var(--gold); opacity: 0.08;
+      pointer-events: none;
+      transition: opacity 300ms ease;
+    }
+    .testi-card:hover::before { opacity: 0.16; }
+    .testi-card:hover { transform: translateY(-5px) rotate(-0.25deg); }
+
+    /* ── Sticky header ── */
+    .sticky-header {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 6px rgba(12,30,27,0.06);
+    }
+
+    /* ── Image collage (ported from Framer Motion hero-section-9) ── */
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .blob {
+      position: absolute; border-radius: 50%;
+      animation: bob 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .blob-2 { animation-delay: 0.5s; border-radius: 8px; }
+    .blob-3 { animation-delay: 1s; }
+    .img-card {
+      position: absolute;
+      background: #fff; padding: 8px; border-radius: 16px;
+      box-shadow: 0 4px 14px rgba(12,30,27,0.1), 0 14px 36px rgba(12,30,27,0.1);
+      animation: scaleIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+      overflow: hidden;
+    }
+    .img-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
+    .img-card-1 { animation-delay: 0.3s; }
+    .img-card-2 { animation-delay: 0.5s; }
+    .img-card-3 { animation-delay: 0.7s; }
+
+    /* ── Hero stat row ── */
+    .hero-stat { display: flex; align-items: center; gap: 0.75rem; }
+    .hero-stat-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(26,104,96,0.09);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1023px) {
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .bio-grid  { grid-template-columns: 1fr !important; }
+      .steps-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .collage-wrap { height: 380px !important; }
+    }
+    @media (max-width: 767px) {
+      .pain-grid  { grid-template-columns: 1fr !important; }
+      .testi-grid { grid-template-columns: 1fr !important; }
+      .steps-grid { grid-template-columns: 1fr !important; }
+      .cred-strip { gap: 0.75rem !important; }
+      .nav-chips  { display: none !important; }
+      .topbar-sub { display: none !important; }
+      .collage-wrap { height: 320px !important; }
+      .img-card-1 { width: 180px !important; height: 196px !important; }
+      .img-card-2 { width: 148px !important; height: 164px !important; }
+      .img-card-3 { width: 180px !important; height: 196px !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .blob { animation: none; }
+      .img-card { animation: none; opacity: 1; transform: none; }
+    }
+
+    /* ── Background Gradient Animation (ported from Aceternity UI) ── */
+    @keyframes gaFirst {
+      0%   { transform: translateX(0px)    translateY(-30px) rotate(-15deg); }
+      33%  { transform: translateX(-30px)  translateY(0px)   rotate(15deg);  }
+      66%  { transform: translateX(30px)   translateY(30px)  rotate(0deg);   }
+      100% { transform: translateX(0px)    translateY(-30px) rotate(-15deg); }
+    }
+    @keyframes gaSecond {
+      0%   { transform: translateX(0px)    translateY(0px)   rotate(0deg);  }
+      20%  { transform: translateX(-105px) translateY(20px)  rotate(-5deg); }
+      40%  { transform: translateX(-105px) translateY(0px)   rotate(0deg);  }
+      60%  { transform: translateX(105px)  translateY(0px)   rotate(0deg);  }
+      80%  { transform: translateX(105px)  translateY(20px)  rotate(5deg);  }
+      100% { transform: translateX(0px)    translateY(0px)   rotate(0deg);  }
+    }
+    @keyframes gaThird {
+      0%   { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+      20%  { transform: translateX(105px)  translateY(-20px)  rotate(5deg);  }
+      40%  { transform: translateX(105px)  translateY(0px)    rotate(0deg);  }
+      60%  { transform: translateX(-105px) translateY(0px)    rotate(0deg);  }
+      80%  { transform: translateX(-105px) translateY(-20px)  rotate(-5deg); }
+      100% { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+    }
+    @keyframes gaFourth {
+      0%   { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+      20%  { transform: translateX(-200px) translateY(105px)  rotate(-5deg); }
+      40%  { transform: translateX(-200px) translateY(0px)    rotate(0deg);  }
+      60%  { transform: translateX(200px)  translateY(0px)    rotate(0deg);  }
+      80%  { transform: translateX(200px)  translateY(105px)  rotate(5deg);  }
+      100% { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+    }
+    @keyframes gaFifth {
+      0%   { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+      20%  { transform: translateX(-500px) translateY(100px)  rotate(5deg);  }
+      40%  { transform: translateX(-200px) translateY(-200px) rotate(-5deg); }
+      60%  { transform: translateX(200px)  translateY(-200px) rotate(5deg);  }
+      80%  { transform: translateX(500px)  translateY(100px)  rotate(-5deg); }
+      100% { transform: translateX(0px)    translateY(0px)    rotate(0deg);  }
+    }
+    .hero-ga {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+      background: linear-gradient(160deg, var(--cream) 0%, #fff 65%);
+    }
+    .hero-ga-blobs {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      filter: url(#ga-goo) blur(40px);
+    }
+    .hero-ga-blobs.is-safari { filter: blur(56px); }
+    .ga-blob {
+      position: absolute;
+      mix-blend-mode: soft-light;
+      border-radius: 50%;
+      /* start in the right half — photo collage area */
+      width: 55%; height: 60%;
+      top: 20%; left: 38%;
+    }
+    .ga-b1 {
+      background: radial-gradient(circle at center, rgba(42,138,128,1) 0, rgba(42,138,128,0) 50%) no-repeat;
+      transform-origin: center center;
+      animation: gaFirst 9s ease infinite;
+      opacity: 0.28;
+    }
+    .ga-b2 {
+      background: radial-gradient(circle at center, rgba(26,104,96,0.8) 0, rgba(26,104,96,0) 50%) no-repeat;
+      transform-origin: calc(50% + 200px);
+      animation: gaSecond 13s ease infinite;
+      opacity: 0.22;
+    }
+    .ga-b3 {
+      background: radial-gradient(circle at center, rgba(18,77,71,0.8) 0, rgba(18,77,71,0) 50%) no-repeat;
+      transform-origin: calc(50% + 400px);
+      animation: gaThird 11s ease infinite;
+      opacity: 0.2;
+    }
+    .ga-b4 {
+      background: radial-gradient(circle at center, rgba(75,158,148,0.8) 0, rgba(75,158,148,0) 50%) no-repeat;
+      transform-origin: calc(50% + 100px);
+      animation: gaFourth 15s ease infinite;
+      opacity: 0.18;
+    }
+    .ga-b5 {
+      background: radial-gradient(circle at center, rgba(42,138,128,0.8) 0, rgba(42,138,128,0) 50%) no-repeat;
+      transform-origin: calc(50% + 300px) calc(50% - 200px);
+      animation: gaFifth 17s ease infinite;
+      opacity: 0.24;
+    }
+    .ga-pointer {
+      position: absolute;
+      mix-blend-mode: soft-light;
+      width: 45%; height: 50%;
+      top: 25%; left: 30%;
+      background: radial-gradient(circle at center, rgba(26,104,96,0.7) 0, rgba(26,104,96,0) 50%) no-repeat;
+      opacity: 0.22;
+      pointer-events: none;
+      border-radius: 50%;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ga-b1,.ga-b2,.ga-b3,.ga-b4,.ga-b5 { animation: none; }
+    }
+
+    /* ── Grain texture overlay for light sections ── */
+    .section-grain { position: relative; isolation: isolate; }
+    .section-grain::before {
+      content: '';
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.04;
+      mix-blend-mode: multiply;
+    }
+    .section-grain > * { position: relative; z-index: 1; }
+
+    /* ── Magnetic button ── */
+    .btn-magnetic { will-change: transform; }
+
+    /* ── CTA section — candle halo ── */
+    .cta-section { position: relative; overflow: hidden; }
+    .cta-ambient-layer {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+    @keyframes ctaDrift1 {
+      0%,100% { transform: translate(-8%, 5%);  }
+      33%     { transform: translate(55%, -8%); }
+      66%     { transform: translate(18%, 52%); }
+    }
+    @keyframes ctaDrift2 {
+      0%,100% { transform: translate(72%, 60%); }
+      40%     { transform: translate(10%, 2%);  }
+      70%     { transform: translate(58%, 18%); }
+    }
+    @keyframes ctaFlicker {
+      0%,100% { opacity: 0.75; transform: scale(1);    }
+      22%     { opacity: 0.95; transform: scale(1.05); }
+      50%     { opacity: 0.78; transform: scale(0.97); }
+      76%     { opacity: 0.88; transform: scale(1.03); }
+    }
+    .cta-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(72px);
+    }
+    .cta-orb-gold {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(196,154,46,0.18) 0%, transparent 70%);
+      top: -15%; left: -8%;
+      animation: ctaDrift1 30s ease-in-out infinite, ctaFlicker 8s ease-in-out infinite;
+    }
+    .cta-orb-teal {
+      width: 540px; height: 540px;
+      background: radial-gradient(circle, rgba(26,104,96,0.2) 0%, transparent 70%);
+      top: 25%; left: 52%;
+      animation: ctaDrift2 38s ease-in-out infinite;
+    }
+    .cta-halo {
+      position: absolute;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(220,175,55,0.18) 0%,
+        rgba(196,154,46,0.10) 28%,
+        rgba(196,154,46,0.04) 55%,
+        transparent 70%);
+      filter: blur(22px);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      will-change: left, top;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cta-orb-gold, .cta-orb-teal { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP BAR ═══════════════════════════════════════════ -->
+<div style="background:var(--teal); padding:0.5rem 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+    <span style="font-size:0.8rem;color:rgba(255,255,255,0.92);font-weight:600;letter-spacing:0.02em;">
+      Serving Charlotte &amp; Lake Norman Families
+    </span>
+    <span class="topbar-sub" style="font-size:0.75rem;color:rgba(255,255,255,0.6);">
+      Senior Transition Specialist &nbsp;·&nbsp; Senior Real Estate Expert &nbsp;·&nbsp; 30+ Years of Experience
+    </span>
+  </div>
+</div>
+
+<!-- ══ STICKY NAV ════════════════════════════════════════ -->
+<header class="sticky-header">
+  <div style="max-width:1200px;margin:0 auto;padding:0.875rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+    <a href="#" aria-label="Premier Senior Resource home">
+      <img src="../brand-assets/Secondary Logo.png" alt="Premier Senior Resource" style="height:44px;width:auto;" />
+    </a>
+    <a href="#get-blueprint" class="btn-teal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Get Free Blueprint
+    </a>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section aria-label="Hero" style="position:relative;overflow:hidden;padding:clamp(3rem,7vw,5rem) 1.5rem;border-bottom:1px solid var(--border);">
+
+  <!-- Background gradient animation -->
+  <div class="hero-ga" aria-hidden="true">
+    <svg style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true">
+      <defs>
+        <filter id="ga-goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+          <feColorMatrix in="blur" mode="matrix"
+            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8"
+            result="goo" />
+          <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+    </svg>
+    <div class="hero-ga-blobs" id="ga-blobs">
+      <div class="ga-blob ga-b1"></div>
+      <div class="ga-blob ga-b2"></div>
+      <div class="ga-blob ga-b3"></div>
+      <div class="ga-blob ga-b4"></div>
+      <div class="ga-blob ga-b5"></div>
+      <div class="ga-pointer" id="ga-pointer"></div>
+    </div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:1200px;margin:0 auto;">
+    <div class="hero-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;">
+
+      <!-- Left -->
+      <div>
+        <div class="reveal" style="margin-bottom:1.25rem;">
+          <span style="display:inline-flex;align-items:center;gap:0.375rem;background:rgba(26,104,96,0.09);border:1px solid rgba(26,104,96,0.2);color:var(--teal);font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:999px;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Free Guide — Instant Access
+          </span>
+        </div>
+
+        <h1 class="reveal d1" style="font-size:clamp(2.25rem,5.5vw,3.75rem);line-height:1.08;color:var(--dark);margin-bottom:1.25rem;-webkit-text-stroke:0.5px var(--dark);paint-order:stroke fill;">
+          Is It Time for Mom<br />or Dad's<br />
+          <em style="font-family:'Great Vibes',cursive;color:var(--teal);font-style:normal;font-size:1.15em;letter-spacing:0.01em;-webkit-text-stroke:0;">Next Chapter?</em>
+        </h1>
+
+        <p class="reveal d2" style="font-size:1.0625rem;line-height:1.8;color:var(--muted);max-width:50ch;margin-bottom:1.25rem;">
+          Helping an aging parent move can feel overwhelming. You may be worried about their safety, their future, and whether you're making the right decision.
+        </p>
+        <p class="reveal d2" style="font-size:1rem;line-height:1.8;color:var(--text);max-width:50ch;margin-bottom:2rem;">
+          The <strong>Next Chapter Made Easy™ Blueprint</strong> gives Charlotte and Lake Norman families a simple step-by-step plan for downsizing, selling a parent's home, and moving forward with confidence.
+        </p>
+
+        <div class="reveal d3" style="display:flex;flex-direction:column;gap:0.7rem;margin-bottom:2rem;">
+          <div class="check-row">
+            <div class="check-dot" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            30+ Years in Healthcare, Senior Living &amp; Real Estate
+          </div>
+          <div class="check-row">
+            <div class="check-dot" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Certified Dementia Practitioner
+          </div>
+          <div class="check-row">
+            <div class="check-dot" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Senior Real Estate Specialist (SRES)
+          </div>
+        </div>
+
+        <div class="reveal d4" style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+          <span class="chip">CDP</span>
+          <span class="chip">SRES</span>
+          <span class="chip">SCTS</span>
+          <span class="chip">Senior Home Coach</span>
+          <span class="chip">Licensed Insurance Professional</span>
+        </div>
+
+        <!-- CTA button -->
+        <div class="reveal d5" style="margin-top:2rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;">
+          <a href="#get-blueprint" class="btn-gold btn-magnetic" style="width:auto;padding:1rem 2.25rem;text-decoration:none;font-size:1rem;">
+            Get My Free Blueprint
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p style="font-size:0.8125rem;color:var(--muted);">Free &nbsp;·&nbsp; No obligation &nbsp;·&nbsp; Instant access</p>
+        </div>
+
+        <!-- Stats row (component pattern) -->
+        <div class="reveal d6" style="display:flex;flex-wrap:wrap;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <p style="font-size:1.25rem;font-family:'Playfair Display',serif;font-weight:900;color:var(--dark);line-height:1;" data-count="500" data-suffix="+">500+</p>
+              <p style="font-size:0.8125rem;color:var(--muted);margin-top:0.2rem;">Families Served</p>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <p style="font-size:1.25rem;font-family:'Playfair Display',serif;font-weight:900;color:var(--dark);line-height:1;" data-count="30" data-suffix="+ Yrs">30+ Yrs</p>
+              <p style="font-size:0.8125rem;color:var(--muted);margin-top:0.2rem;">Experience</p>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <p style="font-size:1.25rem;font-family:'Playfair Display',serif;font-weight:900;color:var(--dark);line-height:1;" data-count="98" data-suffix="%">98%</p>
+              <p style="font-size:0.8125rem;color:var(--muted);margin-top:0.2rem;">Satisfaction Rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Image collage (hero-section-9 layout) -->
+      <div style="position:relative;">
+        <div class="collage-wrap" style="position:relative;height:520px;width:100%;">
+
+          <!-- Floating decorative blobs -->
+          <div class="blob" style="top:-1rem;left:25%;width:64px;height:64px;background:rgba(26,104,96,0.13);" aria-hidden="true"></div>
+          <div class="blob blob-2" style="bottom:2rem;right:20%;width:48px;height:48px;background:rgba(196,154,46,0.18);" aria-hidden="true"></div>
+          <div class="blob blob-3" style="bottom:30%;left:0.5rem;width:24px;height:24px;background:rgba(26,104,96,0.1);" aria-hidden="true"></div>
+
+          <!-- Image 1: top center (large) — replace with photo of elderly parent + adult child -->
+          <div class="img-card img-card-1" style="left:50%;top:0;width:240px;height:264px;transform:translateX(-50%);">
+            <img
+              src="Images/Image1.jpg"
+              alt="Elderly parent with adult child, smiling together"
+            />
+          </div>
+
+          <!-- Image 2: right middle — replace with senior family moment -->
+          <div class="img-card img-card-2" style="right:0;top:33%;width:200px;height:220px;">
+            <img
+              src="Images/Img2.jpg"
+              alt="Senior mother and adult daughter laughing together"
+            />
+          </div>
+
+          <!-- Image 3: bottom left — same size as Photo 1 -->
+          <div class="img-card img-card-3" style="left:0;bottom:0;width:240px;height:264px;">
+            <img
+              src="Images/Img4.jpg"
+              alt="Adult son laughing with elderly parents, group hug"
+            />
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PAIN POINTS ═══════════════════════════════════════ -->
+<section aria-label="Does any of this sound familiar" class="section-grain" style="background:#fff;padding:clamp(3.5rem,7vw,5.5rem) 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="margin-bottom:0.75rem;">You're Not Alone</p>
+      <h2 style="font-size:clamp(1.875rem,4vw,2.75rem);color:var(--dark);margin-bottom:1rem;">Does Any of This Sound Familiar?</h2>
+      <p style="font-size:1.0625rem;line-height:1.75;color:var(--muted);max-width:54ch;margin:0 auto;">
+        Many families reach out when they feel stuck. They've been carrying the weight of this decision for months and aren't sure what to do next.
+      </p>
+    </div>
+
+    <div class="pain-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;">
+
+      <div class="reveal d1 pain-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(26,104,96,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3 style="font-size:1.25rem;color:var(--dark);margin-bottom:0.75rem;font-style:italic;">"I don't know where to start."</h3>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--muted);">
+          The house is full of memories. Every room tells a story. Sorting through everything, downsizing, and preparing a home for sale can feel impossible when you don't have a clear plan.
+        </p>
+      </div>
+
+      <div class="reveal d2 pain-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(26,104,96,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3 style="font-size:1.25rem;color:var(--dark);margin-bottom:0.75rem;font-style:italic;">"I'm worried about my parent's safety."</h3>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--muted);">
+          You notice things are changing. Maybe the home feels harder to manage. Maybe daily tasks are becoming more difficult. You know something needs to happen. You just aren't sure what.
+        </p>
+      </div>
+
+      <div class="reveal d3 pain-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(26,104,96,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 style="font-size:1.25rem;color:var(--dark);margin-bottom:0.75rem;font-style:italic;">"I'm afraid of making the wrong decision."</h3>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--muted);">
+          This is one of the biggest transitions your family will ever face. You want to make the best choice for your loved one without second-guessing yourself later.
+        </p>
+      </div>
+
+      <div class="reveal d4 pain-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(26,104,96,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 style="font-size:1.25rem;color:var(--dark);margin-bottom:0.75rem;font-style:italic;">"I feel like I'm carrying this alone."</h3>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--muted);">
+          Family members have different opinions. Everyone wants what's best, but finding a path forward can feel overwhelming. You need guidance you can trust.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ BLUEPRINT STEPS ═══════════════════════════════════ -->
+<section aria-label="Inside your free blueprint" style="background:var(--dark);padding:clamp(3.5rem,7vw,5.5rem) 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="margin-bottom:0.75rem;">Inside Your Free Blueprint</p>
+      <h2 style="font-size:clamp(1.875rem,4vw,2.75rem);color:var(--cream);margin-bottom:1rem;">Here's What You'll Learn</h2>
+      <p style="font-size:1.0625rem;line-height:1.75;color:rgba(244,239,230,0.6);max-width:54ch;margin:0 auto;">
+        The Next Chapter Made Easy™ Blueprint walks you through the process one step at a time using simple, easy-to-follow guidance.
+      </p>
+    </div>
+
+    <div class="steps-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+
+      <div class="reveal d1 step-card" style="background:rgba(244,239,230,0.05);border:1px solid rgba(244,239,230,0.1);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.55;line-height:1;margin-bottom:1rem;">01</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Understand Where You Are Today</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.55);">Learn how to assess your loved one's situation so you can make informed decisions based on facts, not fear.</p>
+      </div>
+
+      <div class="reveal d2 step-card" style="background:rgba(244,239,230,0.05);border:1px solid rgba(244,239,230,0.1);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.55;line-height:1;margin-bottom:1rem;">02</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Make Downsizing Feel Manageable</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.55);">Get practical tips to help sort, organize, and simplify the home without feeling overwhelmed.</p>
+      </div>
+
+      <div class="reveal d3 step-card" style="background:rgba(244,239,230,0.05);border:1px solid rgba(244,239,230,0.1);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.55;line-height:1;margin-bottom:1rem;">03</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Explore Senior Living and Housing Options</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.55);">Understand your choices, from staying at home to moving into a more supportive environment.</p>
+      </div>
+
+      <div class="reveal d1 step-card" style="background:rgba(244,239,230,0.05);border:1px solid rgba(244,239,230,0.1);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.55;line-height:1;margin-bottom:1rem;">04</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Learn What the Home May Be Worth</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.55);">Discover how your loved one's home equity can help support their next stage of life.</p>
+      </div>
+
+      <div class="reveal d2 step-card" style="background:rgba(244,239,230,0.05);border:1px solid rgba(244,239,230,0.1);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.55;line-height:1;margin-bottom:1rem;">05</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Create a Clear Transition Plan</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.55);">Follow a simple timeline that helps you stay organized from start to finish.</p>
+      </div>
+
+      <div class="reveal d3 step-card step-card-gold" style="background:rgba(196,154,46,0.1);border:1px solid rgba(196,154,46,0.22);border-radius:8px;padding:1.75rem;">
+        <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:2.5rem;color:var(--gold);opacity:0.8;line-height:1;margin-bottom:1rem;">06</div>
+        <h3 style="font-size:1.0625rem;color:var(--cream);margin-bottom:0.625rem;">Receive a Free Personal Strategy Session</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:rgba(244,239,230,0.65);">You'll have the opportunity to speak directly with Stephanie about your family's unique situation at no cost.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ BIO ════════════════════════════════════════════════ -->
+<section aria-label="Meet Stephanie Sellers" class="section-grain" style="background:var(--cream);padding:clamp(3.5rem,7vw,5.5rem) 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="bio-grid" style="display:grid;grid-template-columns:340px 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:start;">
+
+      <!-- Photo -->
+      <div class="reveal">
+        <div style="position:relative;border-radius:8px;overflow:hidden;" class="shadow-card">
+          <img src="../brand-assets/Stephanie.png" alt="Stephanie Sellers — Senior Transition Specialist" style="width:100%;display:block;border-radius:8px;" loading="lazy" />
+          <div style="position:absolute;inset:0;background:linear-gradient(170deg,transparent 55%,rgba(12,30,27,0.45) 100%);border-radius:8px;" aria-hidden="true"></div>
+          <div style="position:absolute;inset:0;background:rgba(26,104,96,0.09);mix-blend-mode:multiply;border-radius:8px;" aria-hidden="true"></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.125rem;">
+          <span class="chip">CDP</span><span class="chip">SRES</span><span class="chip">SCTS</span>
+          <span class="chip">Senior Home Coach</span><span class="chip">Licensed Insurance Professional</span>
+        </div>
+        <p style="font-size:0.8125rem;font-weight:600;color:var(--teal);margin-top:0.625rem;">30+ Years of Experience</p>
+      </div>
+
+      <!-- Bio text -->
+      <div>
+        <p class="reveal eyebrow" style="margin-bottom:0.625rem;">Meet Your Guide</p>
+        <h2 class="reveal d1" style="font-size:clamp(2rem,3.5vw,2.75rem);color:var(--dark);margin-bottom:0.2rem;">Stephanie Sellers</h2>
+        <p class="reveal d1" style="font-size:1rem;color:var(--teal);font-weight:600;margin-bottom:1.75rem;">Your Guide Through Every Step</p>
+
+        <div class="reveal d2" style="display:flex;flex-direction:column;gap:1.25rem;">
+          <p style="font-size:1rem;line-height:1.8;color:var(--text);">
+            For more than three decades, I've helped families navigate some of life's biggest transitions. My background in healthcare, senior living, and real estate gives me a unique understanding of the challenges families face when helping aging parents.
+          </p>
+          <p style="font-size:1rem;line-height:1.8;color:var(--text);">
+            I created the <strong>Next Chapter Made Easy™ Blueprint</strong> because families deserve more than a real estate transaction. They deserve a trusted guide — someone who understands the emotional side of letting go of a family home, who understands senior care options, and who can help simplify the process and bring clarity during a difficult time.
+          </p>
+
+          <blockquote style="border-left:3px solid var(--gold);padding:1.125rem 1.5rem;background:rgba(196,154,46,0.07);border-radius:0 6px 6px 0;font-family:'Great Vibes',cursive;font-size:1.625rem;color:var(--dark);line-height:1.6;margin:0.25rem 0;">
+            "My goal isn't just to help sell a home. It's to help families feel supported, informed, and confident every step of the way."
+          </blockquote>
+
+          <p style="font-size:1rem;line-height:1.8;color:var(--text);">
+            Families throughout Charlotte, Lake Norman, and the surrounding communities turn to me for guidance because I bring together senior transition planning, healthcare knowledge, and real estate expertise in one place.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══════════════════════════════════════ -->
+<section aria-label="What local families are saying" class="section-grain" style="background:#fff;border-top:1px solid var(--border);padding:clamp(3.5rem,7vw,5.5rem) 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <p class="eyebrow" style="margin-bottom:0.75rem;">What Local Families Are Saying</p>
+      <h2 style="font-size:clamp(1.875rem,4vw,2.75rem);color:var(--dark);">Real Stories. Real Support.</h2>
+    </div>
+
+    <div class="testi-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+
+      <blockquote class="reveal d1 testi-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;margin:0;">
+        <div style="display:flex;gap:2px;margin-bottom:1rem;" aria-label="5 out of 5 stars">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--text);margin-bottom:1.5rem;font-style:italic;">
+          "Stephanie helped us through one of the hardest decisions we've ever faced. She made a complicated process feel simple and manageable."
+        </p>
+        <footer><cite style="font-style:normal;font-weight:700;font-size:0.875rem;color:var(--teal);">— Charlotte Family</cite></footer>
+      </blockquote>
+
+      <blockquote class="reveal d2 testi-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;margin:0;">
+        <div style="display:flex;gap:2px;margin-bottom:1rem;" aria-label="5 out of 5 stars">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--text);margin-bottom:1.5rem;font-style:italic;">
+          "I was overwhelmed trying to help my dad. Stephanie gave us clear guidance and helped us understand every option available."
+        </p>
+        <footer><cite style="font-style:normal;font-weight:700;font-size:0.875rem;color:var(--teal);">— Lake Norman Family</cite></footer>
+      </blockquote>
+
+      <blockquote class="reveal d3 testi-card shadow-card" style="background:var(--cream);border:1px solid rgba(26,104,96,0.1);border-radius:8px;padding:2rem;margin:0;">
+        <div style="display:flex;gap:2px;margin-bottom:1rem;" aria-label="5 out of 5 stars">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--gold)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p style="font-size:0.9375rem;line-height:1.75;color:var(--text);margin-bottom:1.5rem;font-style:italic;">
+          "We lived out of state and didn't know how we would manage everything. Stephanie became our trusted resource from start to finish."
+        </p>
+        <footer><cite style="font-style:normal;font-weight:700;font-size:0.875rem;color:var(--teal);">— North Carolina Family</cite></footer>
+      </blockquote>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══════════════════════════════════════════ -->
+<section aria-label="Ready for a clear path forward" class="cta-section" style="background:radial-gradient(ellipse 90% 80% at 50% 50%,rgba(26,104,96,0.22) 0%,transparent 70%),var(--dark);padding:clamp(3.5rem,7vw,5.5rem) 1.5rem;">
+
+  <!-- Candle ambient layer -->
+  <div class="cta-ambient-layer" aria-hidden="true">
+    <div class="cta-orb cta-orb-gold"></div>
+    <div class="cta-orb cta-orb-teal"></div>
+    <div class="cta-halo" id="cta-halo"></div>
+  </div>
+
+  <div style="position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;">
+
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--gold);margin-bottom:1rem;">Take the First Step</p>
+      <h2 style="font-size:clamp(2rem,5vw,3.25rem);color:var(--cream);line-height:1.1;margin-bottom:1.25rem;">
+        Ready for a Clear<br /><em style="font-family:'Great Vibes',cursive;color:var(--gold);font-style:normal;font-size:1.2em;letter-spacing:0.01em;">Path Forward?</em>
+      </h2>
+      <p style="font-size:1.0625rem;line-height:1.75;color:rgba(244,239,230,0.62);max-width:50ch;margin:0 auto 2.5rem;">
+        Helping an aging parent move doesn't have to be confusing or overwhelming. Get the free Next Chapter Made Easy™ Blueprint and take the first step toward a plan that protects your loved one and gives your family peace of mind.
+      </p>
+
+      <div class="shadow-card" style="background:rgba(244,239,230,0.06);border:1px solid rgba(244,239,230,0.12);border-radius:8px;padding:2rem;max-width:460px;margin:0 auto 2rem;">
+        <form onsubmit="return false;" novalidate style="display:flex;flex-direction:column;gap:0.875rem;">
+          <input type="text" placeholder="First Name" class="inp inp-dark" autocomplete="given-name" aria-label="First Name" />
+          <input type="email" placeholder="Email Address" class="inp inp-dark" autocomplete="email" aria-label="Email Address" />
+          <button type="submit" class="btn-gold btn-magnetic">
+            Get My Free Blueprint
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+        <div style="display:flex;align-items:center;justify-content:center;gap:0.35rem;margin-top:0.875rem;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(244,239,230,0.35)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p style="font-size:0.75rem;color:rgba(244,239,230,0.35);">Your information stays private and confidential.</p>
+        </div>
+      </div>
+
+      <a href="mailto:sellersrealtygroupnc@gmail.com" style="font-size:0.875rem;color:rgba(244,239,230,0.4);text-decoration:none;display:block;margin-top:0.4rem;cursor:pointer;transition:color 180ms ease;" onmouseover="this.style.color='rgba(244,239,230,0.7)'" onmouseout="this.style.color='rgba(244,239,230,0.4)'">sellersrealtygroupnc@gmail.com</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ════════════════════════════════════════════ -->
+<footer style="background:var(--dark);border-top:1px solid rgba(244,239,230,0.07);padding:1.75rem 1.5rem;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <img src="../brand-assets/Secondary Logo.png" alt="Premier Senior Resource" style="height:26px;width:auto;opacity:0.65;" />
+      <span style="color:rgba(244,239,230,0.22);font-size:0.75rem;">Guidance. Care. Peace of Mind.</span>
+    </div>
+    <p style="font-size:0.75rem;color:rgba(244,239,230,0.22);">&copy; 2025 Premier Senior Resource &nbsp;·&nbsp; Charlotte &amp; Lake Norman, NC</p>
+  </div>
+</footer>
+
+<!-- ══ SCRIPTS ═══════════════════════════════════════════ -->
+<script>
+  // ── Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Trigger hero reveals on load
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('section[aria-label="Hero"] .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('on'), 80 + i * 80);
+    });
+  });
+
+  // ── Counter animation
+  function counter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1600;
+    const t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { counter(e.target); cObs.unobserve(e.target); } });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+  // ── CTA candle halo
+  (function() {
+    const section = document.querySelector('.cta-section');
+    const halo    = document.getElementById('cta-halo');
+    if (!section || !halo) return;
+
+    let hX, hY, tX, tY, raf;
+
+    function center() {
+      tX = section.offsetWidth  / 2;
+      tY = section.offsetHeight / 2;
+    }
+    center();
+    hX = tX; hY = tY;
+
+    section.addEventListener('mouseenter', function() {
+      halo.style.opacity = '1';
+    });
+    section.addEventListener('mouseleave', function() {
+      center();
+      halo.style.opacity = '0.35';
+    });
+    section.addEventListener('mousemove', function(e) {
+      const r = section.getBoundingClientRect();
+      tX = e.clientX - r.left;
+      tY = e.clientY - r.top;
+    });
+
+    /* Gentle lag — easing divisor 14 mimics the delayed, weighted feel of a candle flame */
+    (function tick() {
+      hX += (tX - hX) / 14;
+      hY += (tY - hY) / 14;
+      halo.style.left = Math.round(hX) + 'px';
+      halo.style.top  = Math.round(hY) + 'px';
+      requestAnimationFrame(tick);
+    })();
+  })();
+
+  // ── Magnetic button effect
+  document.querySelectorAll('.btn-magnetic').forEach(function(btn) {
+    btn.addEventListener('mouseenter', function() {
+      this.style.transition = 'transform 100ms linear, box-shadow 100ms linear';
+    });
+    btn.addEventListener('mousemove', function(e) {
+      const r = this.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width  / 2;
+      const y = e.clientY - r.top  - r.height / 2;
+      this.style.transform = 'translate(' + (x * 0.22) + 'px,' + (y * 0.3) + 'px) rotate(' + (x * 0.04) + 'deg)';
+      this.style.boxShadow = (x * -0.12) + 'px ' + (y * -0.12 + 10) + 'px 28px rgba(196,154,46,0.45)';
+    });
+    btn.addEventListener('mouseleave', function() {
+      this.style.transition = 'transform 450ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 350ms ease';
+      this.style.transform = '';
+      this.style.boxShadow = '';
+    });
+    btn.addEventListener('mousedown', function() {
+      this.style.transform = 'scale(0.96)';
+    });
+    btn.addEventListener('mouseup', function() {
+      this.style.transform = '';
+    });
+  });
+
+  // ── Background gradient animation — mouse tracking
+  (function() {
+    const hero   = document.querySelector('section[aria-label="Hero"]');
+    const blobs  = document.getElementById('ga-blobs');
+    const ptr    = document.getElementById('ga-pointer');
+    if (!hero || !ptr) return;
+
+    // Safari detection → swap to plain blur
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      blobs.classList.add('is-safari');
+    }
+
+    // tgX/tgY are offsets from the hero CENTER so the blob starts centered
+    let curX = 0, curY = 0, tgX = 0, tgY = 0;
+
+    hero.addEventListener('mousemove', function(e) {
+      const r = hero.getBoundingClientRect();
+      tgX = (e.clientX - r.left) - r.width  * 0.5;
+      tgY = (e.clientY - r.top)  - r.height * 0.5;
+    });
+
+    // Reset to center when mouse leaves
+    hero.addEventListener('mouseleave', function() {
+      tgX = 0; tgY = 0;
+    });
+
+    (function animate() {
+      curX += (tgX - curX) / 20;
+      curY += (tgY - curY) / 20;
+      ptr.style.transform = 'translate(' + Math.round(curX) + 'px,' + Math.round(curY) + 'px)';
+      requestAnimationFrame(animate);
+    })();
+  })();
+</script>
+</body>
+</html>

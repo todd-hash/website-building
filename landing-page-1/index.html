@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premier Senior Resource — Aging in Place Support</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal:        #1A6860;
+      --teal-mid:    #25877E;
+      --teal-dark:   #0D3530;
+      --gold:        #C49A2E;
+      --gold-light:  #D4AA45;
+      --gold-pale:   rgba(196,154,46,0.15);
+      --cream:       #F4EFE6;
+      --dark:        #0C1E1B;
+      --surface:     #122220;
+      --text:        #1A2624;
+      --text-muted:  #3D5452;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.3;
+      color: var(--text);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    .fd { font-family: 'Playfair Display', serif; }
+
+    /* ── MEGA LABEL — behaveglobal.com signature style ── */
+    .mega {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 10.625vw, 170px);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.045em;
+    }
+
+    /* ── Grain overlay ── */
+    .grain { position: relative; overflow: hidden; }
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 300px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Gold rule ── */
+    .rule { width: 3rem; height: 3px; background: var(--gold); margin-bottom: 1.2rem; }
+    .rule-c { margin-left: auto; margin-right: auto; }
+
+    /* ── Eyebrow ── */
+    .eyebrow {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
+    }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold); color: #fff;
+      font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 0.875rem 2.25rem; text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+      box-shadow: 0 4px 22px rgba(196,154,46,0.28);
+    }
+    .btn-gold:hover  { background: var(--gold-light); transform: translateX(5px); box-shadow: 0 6px 30px rgba(196,154,46,0.42); }
+    .btn-gold:active { transform: translateX(3px) scale(0.98); }
+    .btn-gold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+    /* ── Nav ── */
+    #nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(9,31,28,0.93); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-inner {
+      max-width: 1360px; margin: 0 auto; padding: 0 2.5rem;
+      height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-link {
+      color: rgba(255,255,255,0.58); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.13em; text-transform: uppercase; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--gold); }
+
+    /* ── Hero ── */
+    #hero { display: grid; grid-template-columns: 55% 45%; height: 100vh; min-height: 640px; }
+    .hero-left {
+      background: var(--dark);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 5rem 4.5rem; position: relative; overflow: hidden;
+    }
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    /* ── Section border/divider ── */
+    .section-border { border-top: 1px solid rgba(255,255,255,0.06); }
+    .section-border-dark { border-top: 1px solid rgba(0,0,0,0.07); }
+
+    /* ── Mega section wrapper ── */
+    .mega-section {
+      padding: 5rem 0;
+    }
+    .mega-section-inner {
+      max-width: 1360px; margin: 0 auto; padding: 0 3rem;
+    }
+
+    /* ── Mega label divider line ── */
+    .mega-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 2rem 0 3rem;
+    }
+    .mega-divider-dark {
+      background: rgba(0,0,0,0.08);
+    }
+
+    /* ── Support list ── */
+    .support-list { border: 1px solid rgba(255,255,255,0.07); }
+    .support-item {
+      padding: 1.2rem 1.5rem; background: rgba(12,30,27,0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 1.1rem;
+      transition: background 0.2s; cursor: default;
+    }
+    .support-item:last-child { border-bottom: none; }
+    .support-item:hover { background: rgba(37,135,126,0.2); }
+
+    /* ── Benefit cards ── */
+    .benefit-card {
+      background: rgba(9,31,28,0.38); border: 1px solid rgba(255,255,255,0.1);
+      padding: 2.25rem 2rem;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .benefit-card:hover { transform: translateY(-5px); background: rgba(9,31,28,0.55); border-color: rgba(196,154,46,0.3); }
+
+    /* ── Step circle ── */
+    .step-circle {
+      width: 4.75rem; height: 4.75rem; border-radius: 50%;
+      border: 2px solid var(--gold); background: rgba(196,154,46,0.08);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 2rem; position: relative; z-index: 1;
+    }
+
+    /* ── Service cards ── */
+    .service-card { cursor: pointer; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    .service-card:hover { transform: translateY(-6px); }
+    .service-img { position: relative; overflow: hidden; aspect-ratio: 4/3; margin-bottom: 1.25rem; }
+    .service-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+    .service-card:hover .service-img img { transform: scale(1.07); }
+    .service-learn {
+      color: var(--gold); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.6rem;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .service-learn:hover { gap: 0.6rem; color: var(--gold-light); }
+
+    /* ── Dot bullet ── */
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 0.46rem; }
+
+    /* ── Check dot ── */
+    .check-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--gold); background: var(--gold-pale); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+    /* ── Reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 0.08s; }
+    .rd2 { transition-delay: 0.17s; }
+    .rd3 { transition-delay: 0.26s; }
+    .rd4 { transition-delay: 0.35s; }
+    .rd5 { transition-delay: 0.44s; }
+
+    /* ── Nav compact on scroll ── */
+    #nav { transition: background 0.3s, box-shadow 0.3s; }
+    #nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+    #nav.scrolled .nav-inner { height: 58px; }
+
+    /* ── Grid helpers ── */
+    .g-split   { display: grid; grid-template-columns: 1fr 1fr; }
+    .g-3       { display: grid; grid-template-columns: repeat(3,1fr); }
+    .g-4       { display: grid; grid-template-columns: repeat(4,1fr); }
+    .g-footer  { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+    .g-benefits{ display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .nav-menu  { display: flex; align-items: center; gap: 2rem; }
+
+    /* ── prefers-reduced-motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .g-4       { grid-template-columns: repeat(2,1fr) !important; }
+      .g-benefits{ grid-template-columns: repeat(2,1fr) !important; }
+      .g-footer  { grid-template-columns: 1fr 1fr !important; gap: 2rem !important; }
+    }
+
+    @media (max-width: 768px) {
+      /* Nav */
+      .nav-inner   { padding: 0 1.25rem !important; }
+      .nav-menu    { gap: 0.75rem; }
+      .nav-link    { display: none; }
+
+      /* Hero */
+      #hero        { grid-template-columns: 1fr !important; height: auto !important; min-height: 0 !important; }
+      .hero-left   { padding: 6.5rem 1.5rem 3.5rem !important; }
+      .hero-right  { height: 55vw !important; min-height: 220px; }
+
+      /* Split / 3-col / 4-col grids */
+      .g-split     { grid-template-columns: 1fr !important; min-height: 0 !important; }
+      .g-3         { grid-template-columns: 1fr !important; }
+      .g-4         { grid-template-columns: 1fr 1fr !important; }
+      .g-benefits  { grid-template-columns: 1fr 1fr !important; }
+      .g-footer    { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
+
+      /* Statement */
+      #statement   { grid-template-columns: 1fr !important; }
+
+      /* Image panels */
+      .img-panel   { height: 55vw !important; min-height: 200px; }
+
+      /* Process connector line */
+      .proc-line   { display: none !important; }
+
+      /* Section padding helpers */
+      .s-inner     { padding: 3rem 1.5rem 4rem !important; }
+      .s-head      { padding: 3rem 1.5rem 0 !important; }
+
+      /* Overview text column */
+      .overview-text { padding: 2.5rem 1.5rem 3.5rem !important; max-width: none !important; }
+
+      /* Footer bottom row */
+      .footer-bottom { flex-direction: column !important; gap: 1rem; text-align: center; }
+
+      /* Mega label */
+      .mega { font-size: clamp(28px,12vw,80px) !important; line-height: 0.9 !important; }
+
+      /* Services intro heading */
+      .services-intro { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAV
+════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero">
+      <img src="brand-assets/Secondary Logo.png" alt="Premier Senior Resource" style="height:40px;">
+    </a>
+    <div class="nav-menu">
+      <a href="#safety" class="nav-link">Services</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#cta" class="nav-link">Contact</a>
+      <a href="#cta" class="btn-gold" style="padding:0.6rem 1.4rem;font-size:0.78rem;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-left grain">
+    <div style="position:absolute;top:0;left:0;width:4px;height:42%;background:linear-gradient(to bottom,var(--gold),transparent);"></div>
+    <div style="position:absolute;bottom:-20%;right:-20%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(26,104,96,0.22) 0%,transparent 65%);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;">
+      <div class="rule"></div>
+      <p class="eyebrow">Aging in Place Support</p>
+      <h1 class="fd" style="color:#fff;font-size:clamp(3rem,5.2vw,5.8rem);font-weight:900;line-height:1.0;letter-spacing:-0.04em;margin-bottom:1.75rem;">
+        Helping Seniors<br><em>Stay Safe at</em><br><em>Home</em> Longer
+      </h1>
+      <p style="color:rgba(255,255,255,0.6);font-size:1.05rem;line-height:1.75;max-width:420px;margin-bottom:2.75rem;">
+        Simple support for families who want their loved ones to stay safe, comfortable, and independent at home.
+      </p>
+      <a href="#cta" class="btn-gold">Request Home Assessment →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://placehold.co/900x1000/1A6860/C49A2E?text=Safe+at+Home" alt="Senior living safely at home">
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(12,30,27,0.3),transparent 60%);"></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     OVERVIEW  —  mega label: "Home"
+════════════════════════════════════════════ -->
+<section style="background:var(--cream);">
+  <!-- Full-bleed mega label row -->
+  <div class="s-head" style="padding:4.5rem 3rem 0;max-width:1360px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.08);padding-bottom:2rem;">
+      <span class="mega" style="color:var(--dark);">Home</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">What We Do</p>
+    </div>
+  </div>
+  <!-- Split content below label -->
+  <div class="g-split" style="min-height:580px;">
+    <div class="overview-text" style="padding:3.5rem 5rem 5rem 3rem;display:flex;flex-direction:column;justify-content:center;max-width:calc(680px + 3rem);padding-left:3rem;">
+      <h2 class="fd reveal" style="font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;color:var(--dark);margin-bottom:1.25rem;">
+        Home Should Still Feel Safe
+      </h2>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;margin-bottom:1.25rem;">
+        As parents get older, small changes can become bigger concerns.
+      </p>
+      <p style="font-size:0.78rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:0.9rem;">Maybe you've noticed:</p>
+      <ul style="list-style:none;margin-bottom:2rem;">
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.6rem;"><span class="dot"></span><span style="color:var(--text-muted);font-size:0.95rem;line-height:1.65;">Trouble getting around safely</span></li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.6rem;"><span class="dot"></span><span style="color:var(--text-muted);font-size:0.95rem;line-height:1.65;">Missed medications</span></li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.6rem;"><span class="dot"></span><span style="color:var(--text-muted);font-size:0.95rem;line-height:1.65;">Memory changes</span></li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.6rem;"><span class="dot"></span><span style="color:var(--text-muted);font-size:0.95rem;line-height:1.65;">A recent fall</span></li>
+        <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span class="dot"></span><span style="color:var(--text-muted);font-size:0.95rem;line-height:1.65;">Difficulty keeping up with the home</span></li>
+      </ul>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;margin-bottom:0.85rem;">You want to help. You just don't want to make the wrong decision.</p>
+      <p style="color:var(--dark);font-size:1rem;line-height:1.75;font-weight:500;">Premier Senior Resource helps families create safer living environments so seniors can stay at home longer with confidence and support.</p>
+    </div>
+    <div class="img-panel" style="position:relative;overflow:hidden;">
+      <img src="https://placehold.co/800x700/25877E/FFFFFF?text=Aging+in+Place" alt="Senior aging in place" style="width:100%;height:100%;object-fit:cover;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,27,0.5),transparent 55%);"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     HOME SAFETY  —  mega label: "Safety"
+════════════════════════════════════════════ -->
+<section id="safety" class="grain" style="background:var(--dark);position:relative;">
+  <div style="position:absolute;top:-15%;right:-8%;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,rgba(37,135,126,0.18) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div class="s-inner" style="max-width:1360px;margin:0 auto;padding:4.5rem 3rem 5.5rem;position:relative;z-index:1;">
+    <!-- Mega label row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:2rem;margin-bottom:3.5rem;">
+      <span class="mega" style="color:#fff;">Safety</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">Home Safety Support</p>
+    </div>
+    <!-- 2-col content -->
+    <div class="g-split" style="gap:5rem;align-items:start;">
+      <div>
+        <h2 class="fd reveal" style="color:#fff;font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.03em;margin-bottom:1.5rem;">
+          Making Everyday<br>Life Safer
+        </h2>
+        <p style="color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.75;margin-bottom:1rem;">
+          A safe home can help seniors stay independent longer and reduce unnecessary risks.
+        </p>
+        <p style="color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.75;">
+          Stephanie helps families identify simple changes that can improve safety, comfort, and peace of mind.
+        </p>
+      </div>
+      <div>
+        <p style="color:rgba(255,255,255,0.3);font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:1.25rem;">Support May Include</p>
+        <div class="support-list reveal rd1">
+          <div class="support-item"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);min-width:2rem;opacity:0.8;">01</span><span style="color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.5;">Fall prevention guidance</span></div>
+          <div class="support-item"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);min-width:2rem;opacity:0.8;">02</span><span style="color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.5;">Home safety recommendations</span></div>
+          <div class="support-item"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);min-width:2rem;opacity:0.8;">03</span><span style="color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.5;">Mobility and accessibility support</span></div>
+          <div class="support-item"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);min-width:2rem;opacity:0.8;">04</span><span style="color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.5;">Room-by-room safety concerns</span></div>
+          <div class="support-item"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);min-width:2rem;opacity:0.8;">05</span><span style="color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.5;">Daily living improvements</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PLANNING  —  mega label: "Plan"
+════════════════════════════════════════════ -->
+<section style="background:#fff;">
+  <!-- Full-bleed mega label row -->
+  <div class="s-head" style="padding:4.5rem 3rem 0;max-width:1360px;margin:0 auto;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.08);padding-bottom:2rem;">
+      <span class="mega" style="color:var(--dark);">Plan</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">Planning &amp; Modifications</p>
+    </div>
+  </div>
+  <!-- Split: image left, text right -->
+  <div class="g-split" style="min-height:560px;">
+    <div class="img-panel" style="position:relative;overflow:hidden;">
+      <img src="https://placehold.co/800x660/C49A2E/FFFFFF?text=Family+Planning" alt="Family planning" style="width:100%;height:100%;object-fit:cover;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent 50%,rgba(255,255,255,0.1));"></div>
+    </div>
+    <div style="padding:3.5rem 3rem 5rem 5rem;display:flex;flex-direction:column;justify-content:center;">
+      <h2 class="fd reveal" style="font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:700;line-height:1.1;letter-spacing:-0.03em;color:var(--dark);margin-bottom:1.25rem;">
+        Planning for Today<br>and the Future
+      </h2>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;margin-bottom:2rem;">
+        The right plan now can help families avoid bigger challenges later. Premier Senior Resource helps families think through:
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem 1.5rem;margin-bottom:2.25rem;">
+        <div style="display:flex;align-items:flex-start;gap:0.65rem;"><span class="check-dot"></span><span style="color:var(--text-muted);font-size:0.9rem;line-height:1.55;">Aging in place planning</span></div>
+        <div style="display:flex;align-items:flex-start;gap:0.65rem;"><span class="check-dot"></span><span style="color:var(--text-muted);font-size:0.9rem;line-height:1.55;">Accessibility needs</span></div>
+        <div style="display:flex;align-items:flex-start;gap:0.65rem;"><span class="check-dot"></span><span style="color:var(--text-muted);font-size:0.9rem;line-height:1.55;">Future care concerns</span></div>
+        <div style="display:flex;align-items:flex-start;gap:0.65rem;"><span class="check-dot"></span><span style="color:var(--text-muted);font-size:0.9rem;line-height:1.55;">Home modification ideas</span></div>
+        <div style="display:flex;align-items:flex-start;gap:0.65rem;"><span class="check-dot"></span><span style="color:var(--text-muted);font-size:0.9rem;line-height:1.55;">Long-term support options</span></div>
+      </div>
+      <p style="border-left:3px solid var(--gold);padding-left:1.25rem;font-style:italic;color:var(--text-muted);font-size:0.95rem;line-height:1.75;">
+        Every family receives guidance based on their loved one's unique needs and goals.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     BENEFITS  —  mega label: "Benefits"
+════════════════════════════════════════════ -->
+<section id="benefits" class="grain" style="background:var(--teal);position:relative;">
+  <div style="position:absolute;bottom:-20%;left:-8%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(9,31,28,0.5) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div class="s-inner" style="max-width:1360px;margin:0 auto;padding:4.5rem 3rem 5.5rem;position:relative;z-index:1;">
+    <!-- Mega label row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.12);padding-bottom:2rem;margin-bottom:3.5rem;">
+      <span class="mega" style="color:#fff;">Benefits</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">Why Families Choose</p>
+    </div>
+    <!-- Header + cards -->
+    <div class="g-split" style="gap:3rem;align-items:start;margin-bottom:3rem;">
+      <div>
+        <h2 class="fd reveal" style="color:#fff;font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.03em;">
+          Why Families Choose<br>Aging in Place Support
+        </h2>
+      </div>
+      <div>
+        <p style="color:rgba(255,255,255,0.65);font-size:1rem;line-height:1.75;">
+          Many seniors feel safest and most comfortable in their own homes. With the right support, aging in place can help:
+        </p>
+      </div>
+    </div>
+    <div class="g-benefits">
+      <div class="benefit-card reveal rd1">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Maintain Independence</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">Seniors keep control of their daily routines and living environment.</p>
+      </div>
+      <div class="benefit-card reveal rd2">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Improve Daily Safety</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">Simple modifications reduce fall risk and daily hazards at home.</p>
+      </div>
+      <div class="benefit-card reveal rd3">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Reduce Family Stress</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">Families gain peace of mind knowing their loved one is safer.</p>
+      </div>
+      <div class="benefit-card reveal rd4">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Support Emotional Well-being</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">Familiar surroundings support mental and emotional health.</p>
+      </div>
+      <div class="benefit-card reveal rd5">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Create Peace of Mind</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">A clear plan forward creates confidence for families and seniors alike.</p>
+      </div>
+      <div class="benefit-card reveal rd1" style="transition-delay:0.52s;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(196,154,46,0.15);border:1.5px solid rgba(196,154,46,0.4);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A2E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="fd" style="color:#fff;font-size:1.2rem;font-weight:700;margin-bottom:0.65rem;line-height:1.25;">Personalized Guidance</h3>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;line-height:1.65;">Every plan is tailored to your loved one's unique needs and goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     STATEMENT — "Be" equivalent from behaveglobal
+════════════════════════════════════════════ -->
+<section id="statement" style="display:grid;grid-template-columns:1fr 1fr;min-height:580px;">
+  <div style="background:var(--cream);display:flex;align-items:center;justify-content:center;padding:5rem 4rem;position:relative;overflow:hidden;">
+    <!-- Decorative ghost word -->
+    <span style="position:absolute;font-family:'Playfair Display',serif;font-size:clamp(8rem,15vw,13rem);font-weight:900;color:var(--teal-dark);opacity:0.06;letter-spacing:-0.05em;user-select:none;pointer-events:none;white-space:nowrap;">Safe</span>
+    <div style="position:relative;z-index:1;text-align:center;max-width:380px;">
+      <div class="rule" style="margin:0 auto 2rem;"></div>
+      <h2 class="fd" style="font-size:clamp(3.5rem,6vw,5.5rem);font-weight:900;line-height:0.95;letter-spacing:-0.05em;color:var(--dark);margin-bottom:1.5rem;">
+        Safe &amp;<br>Confident<br>at Home
+      </h2>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;">
+        Your loved one deserves to stay where they're most comfortable.
+      </p>
+    </div>
+  </div>
+  <div class="img-panel" style="position:relative;overflow:hidden;">
+    <img src="https://placehold.co/800x600/0D3530/C49A2E?text=Comfortable+at+Home" alt="Senior comfortable at home" style="width:100%;height:100%;object-fit:cover;">
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(12,30,27,0.1),rgba(12,30,27,0.55));"></div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PROCESS  —  mega label: "Process"
+════════════════════════════════════════════ -->
+<section id="process" class="grain" style="background:var(--surface);position:relative;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:400px;border-radius:50%;background:radial-gradient(ellipse,rgba(26,104,96,0.18) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div class="s-inner" style="max-width:1360px;margin:0 auto;padding:4.5rem 3rem 5.5rem;position:relative;z-index:1;">
+    <!-- Mega label row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:2rem;margin-bottom:4.5rem;">
+      <span class="mega" style="color:#fff;">Process</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">How It Works</p>
+    </div>
+    <!-- Steps -->
+    <div class="g-3" style="gap:2.5rem;position:relative;">
+      <div class="proc-line" style="position:absolute;top:2.35rem;left:calc(16.67% + 2rem);right:calc(16.67% + 2rem);height:1px;background:linear-gradient(to right,var(--gold),rgba(196,154,46,0.2) 50%,var(--gold));"></div>
+      <div class="reveal rd1" style="text-align:center;padding-top:0.25rem;">
+        <div class="step-circle"><span class="fd" style="color:var(--gold);font-size:1.6rem;font-weight:700;">1</span></div>
+        <h3 class="fd" style="color:#fff;font-size:1.25rem;font-weight:700;margin-bottom:0.85rem;line-height:1.3;">Schedule a Conversation</h3>
+        <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.7;">Talk through your concerns and current situation.</p>
+      </div>
+      <div class="reveal rd2" style="text-align:center;padding-top:0.25rem;">
+        <div class="step-circle"><span class="fd" style="color:var(--gold);font-size:1.6rem;font-weight:700;">2</span></div>
+        <h3 class="fd" style="color:#fff;font-size:1.25rem;font-weight:700;margin-bottom:0.85rem;line-height:1.3;">Receive Personalized Guidance</h3>
+        <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.7;">Get recommendations tailored to your loved one's home and needs.</p>
+      </div>
+      <div class="reveal rd3" style="text-align:center;padding-top:0.25rem;">
+        <div class="step-circle"><span class="fd" style="color:var(--gold);font-size:1.6rem;font-weight:700;">3</span></div>
+        <h3 class="fd" style="color:#fff;font-size:1.25rem;font-weight:700;margin-bottom:0.85rem;line-height:1.3;">Create a Safer Plan Forward</h3>
+        <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;line-height:1.7;">Move forward with more clarity, confidence, and peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     OTHER SERVICES  —  mega label: "Services"
+════════════════════════════════════════════ -->
+<section id="services-other" style="background:#fff;">
+  <div style="max-width:1360px;margin:0 auto;padding:4.5rem 3rem 5.5rem;">
+    <!-- Mega label row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.08);padding-bottom:2rem;margin-bottom:4rem;">
+      <span class="mega" style="color:var(--dark);">Services</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">Additional Support</p>
+    </div>
+    <!-- Intro row -->
+    <div class="g-split services-intro" style="gap:3rem;align-items:start;margin-bottom:3rem;">
+      <h2 class="fd" style="font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-0.03em;color:var(--dark);">
+        Additional Support for<br>Seniors and Families
+      </h2>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.75;padding-top:0.25rem;">
+        Beyond aging in place support, Premier Senior Resource helps families navigate every stage of the senior care journey.
+      </p>
+    </div>
+    <!-- 4-col cards -->
+    <div class="g-4" style="gap:1.5rem;">
+      <div class="service-card reveal rd1" tabindex="0">
+        <div class="service-img">
+          <img src="https://placehold.co/400x300/1A6860/FFFFFF?text=Senior+Care" alt="Senior care placement">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,27,0.65),transparent 55%);"></div>
+        </div>
+        <h3 class="fd" style="color:var(--dark);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3;">Senior Care Placement</h3>
+        <p style="color:var(--text-muted);font-size:0.875rem;line-height:1.65;">Helping families explore assisted living and memory care options.</p>
+        <a href="#cta" class="service-learn">Learn more →</a>
+      </div>
+      <div class="service-card reveal rd2" tabindex="0">
+        <div class="service-img">
+          <img src="https://placehold.co/400x300/C49A2E/FFFFFF?text=Real+Estate" alt="Real estate solutions">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,27,0.65),transparent 55%);"></div>
+        </div>
+        <h3 class="fd" style="color:var(--dark);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3;">Real Estate Solutions</h3>
+        <p style="color:var(--text-muted);font-size:0.875rem;line-height:1.65;">Support for downsizing, home sales, and major life transitions.</p>
+        <a href="#cta" class="service-learn">Learn more →</a>
+      </div>
+      <div class="service-card reveal rd3" tabindex="0">
+        <div class="service-img">
+          <img src="https://placehold.co/400x300/0D3530/FFFFFF?text=Family+Care" alt="Family care consulting">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,27,0.65),transparent 55%);"></div>
+        </div>
+        <h3 class="fd" style="color:var(--dark);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3;">Family Care Consulting</h3>
+        <p style="color:var(--text-muted);font-size:0.875rem;line-height:1.65;">Guidance for caregivers and adult children managing care decisions.</p>
+        <a href="#cta" class="service-learn">Learn more →</a>
+      </div>
+      <div class="service-card reveal rd4" tabindex="0">
+        <div class="service-img">
+          <img src="https://placehold.co/400x300/3D5452/FFFFFF?text=Financial+Legal" alt="Financial and legal guidance">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(12,30,27,0.65),transparent 55%);"></div>
+        </div>
+        <h3 class="fd" style="color:var(--dark);font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;line-height:1.3;">Financial &amp; Legal Guidance</h3>
+        <p style="color:var(--text-muted);font-size:0.875rem;line-height:1.65;">Trusted referral support for planning and future care conversations.</p>
+        <a href="#cta" class="service-learn">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FINAL CTA  —  mega label: "Together"
+════════════════════════════════════════════ -->
+<section id="cta" class="grain" style="background:var(--dark);position:relative;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(26,104,96,0.2) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+
+  <div class="s-inner" style="max-width:1360px;margin:0 auto;padding:4.5rem 3rem 5.5rem;position:relative;z-index:1;">
+    <!-- Mega label row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:2rem;margin-bottom:4rem;">
+      <span class="mega" style="color:#fff;">Together</span>
+      <p class="eyebrow" style="margin-bottom:0;padding-bottom:0.25rem;">Get Started</p>
+    </div>
+    <!-- CTA content centered -->
+    <div style="max-width:640px;">
+      <h2 class="fd reveal" style="color:#fff;font-size:clamp(2.6rem,4.5vw,4.5rem);font-weight:900;line-height:1.0;letter-spacing:-0.04em;margin-bottom:1.5rem;">
+        You Don't Have to<br><em>Figure This Out</em><br>Alone
+      </h2>
+      <p style="color:rgba(255,255,255,0.55);font-size:1rem;line-height:1.75;margin-bottom:3rem;max-width:460px;">
+        Let's talk about your family's situation and create a plan that brings confidence and peace of mind.
+      </p>
+      <a href="mailto:info@premierseniorresource.com" class="btn-gold" style="font-size:0.95rem;padding:1.05rem 3rem;">Request Home Assessment →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer style="background:#080F0D;border-top:1px solid rgba(255,255,255,0.04);padding:4.5rem 0 2rem;">
+  <div style="max-width:1360px;margin:0 auto;padding:0 3rem;">
+    <div class="g-footer">
+      <div>
+        <img src="brand-assets/Secondary Logo.png" alt="Premier Senior Resource" style="height:38px;margin-bottom:1.5rem;filter:brightness(0) invert(1);opacity:0.7;">
+        <p style="color:rgba(255,255,255,0.38);font-size:0.875rem;line-height:1.75;max-width:270px;">
+          Helping families create safer living environments so seniors can stay at home longer with confidence and support.
+        </p>
+        <p style="color:rgba(255,255,255,0.18);font-size:0.78rem;margin-top:1rem;font-style:italic;">Comfort. Safety. Peace of Mind.</p>
+      </div>
+      <div>
+        <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:1.25rem;">Services</p>
+        <a href="#safety" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Aging in Place</a>
+        <a href="#services-other" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Senior Care Placement</a>
+        <a href="#services-other" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Real Estate Solutions</a>
+        <a href="#services-other" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Family Consulting</a>
+        <a href="#services-other" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Financial &amp; Legal</a>
+      </div>
+      <div>
+        <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:1.25rem;">Navigate</p>
+        <a href="#process" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">How It Works</a>
+        <a href="#benefits" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;margin-bottom:0.7rem;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Why Aging in Place</a>
+        <a href="#cta" style="display:block;color:rgba(255,255,255,0.42);font-size:0.875rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C49A2E'" onmouseout="this.style.color='rgba(255,255,255,0.42)'">Home Assessment</a>
+      </div>
+      <div>
+        <p style="font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:1.25rem;">Contact</p>
+        <p style="color:rgba(255,255,255,0.42);font-size:0.875rem;line-height:1.75;margin-bottom:1.5rem;">info@premierseniorresource.com</p>
+        <a href="#cta" class="btn-gold" style="font-size:0.78rem;padding:0.65rem 1.4rem;">Get in Touch</a>
+      </div>
+    </div>
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;display:flex;align-items:center;justify-content:space-between;">
+      <p style="color:rgba(255,255,255,0.18);font-size:0.78rem;">© 2025 Premier Senior Resource. All rights reserved.</p>
+      <p style="color:rgba(255,255,255,0.18);font-size:0.78rem;">Serving families with clarity and compassion.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ── Scroll-reveal (IntersectionObserver) ──
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── Nav compact on scroll ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
