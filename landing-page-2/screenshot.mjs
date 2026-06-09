@@ -28,8 +28,9 @@ await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 });
 await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
 
 // Force all reveal animations visible for full-page screenshot
+// (this page's CSS/JS uses the "on" class — see .reveal.on — not "visible")
 await page.evaluate(() => {
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('on'));
 });
 await new Promise(r => setTimeout(r, 400));
 

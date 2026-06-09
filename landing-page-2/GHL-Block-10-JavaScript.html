@@ -1,0 +1,245 @@
+<!-- GHL Custom HTML/Javascript — Block 10: JavaScript
+     (scroll reveals, counters, magnetic buttons, gradient animation, CTA halo)
+     Place this LAST.
+
+     IMPORTANT — GHL can insert/render "Custom HTML/Javascript" blocks
+     asynchronously, so the elements this script targets (.reveal, [data-count],
+     #cta-halo, .btn-magnetic, #ga-blobs, etc., which live in blocks 1-9 above)
+     may not exist in the DOM yet at the moment this script runs. A one-time
+     `querySelectorAll` would silently miss them — which is why sections were
+     showing only their backgrounds. Instead, every feature below re-scans via
+     a MutationObserver (with a "-bound" attribute guard so nothing double-inits)
+     so it picks up elements no matter when GHL actually inserts them. -->
+<script>
+(function() {
+  const tryInit = [];
+  function runAll() { tryInit.forEach(function(fn) { fn(); }); }
+
+  // ── Scroll reveal
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  tryInit.push(function() {
+    document.querySelectorAll('.reveal:not([data-reveal-bound])').forEach(function(el) {
+      el.setAttribute('data-reveal-bound', '');
+      io.observe(el);
+    });
+  });
+
+  // ── Counter animation
+  function counter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1600;
+    const t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  const cObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { counter(e.target); cObs.unobserve(e.target); } });
+  }, { threshold: 0.6 });
+  tryInit.push(function() {
+    document.querySelectorAll('[data-count]:not([data-counter-bound])').forEach(function(el) {
+      el.setAttribute('data-counter-bound', '');
+      cObs.observe(el);
+    });
+  });
+
+  // ── CTA candle halo
+  tryInit.push(function() {
+    const section = document.querySelector('.cta-section:not([data-halo-bound])');
+    const halo    = document.getElementById('cta-halo');
+    if (!section || !halo) return;
+    section.setAttribute('data-halo-bound', '');
+
+    let hX, hY, tX, tY;
+    function center() {
+      tX = section.offsetWidth  / 2;
+      tY = section.offsetHeight / 2;
+    }
+    center();
+    hX = tX; hY = tY;
+
+    section.addEventListener('mouseenter', function() {
+      halo.style.opacity = '1';
+    });
+    section.addEventListener('mouseleave', function() {
+      center();
+      halo.style.opacity = '0.35';
+    });
+    section.addEventListener('mousemove', function(e) {
+      const r = section.getBoundingClientRect();
+      tX = e.clientX - r.left;
+      tY = e.clientY - r.top;
+    });
+
+    /* Gentle lag — easing divisor 14 mimics the delayed, weighted feel of a candle flame */
+    (function tick() {
+      hX += (tX - hX) / 14;
+      hY += (tY - hY) / 14;
+      halo.style.left = Math.round(hX) + 'px';
+      halo.style.top  = Math.round(hY) + 'px';
+      requestAnimationFrame(tick);
+    })();
+  });
+
+  // ── Magnetic button effect
+  tryInit.push(function() {
+    document.querySelectorAll('.btn-magnetic:not([data-magnetic-bound])').forEach(function(btn) {
+      btn.setAttribute('data-magnetic-bound', '');
+      btn.addEventListener('mouseenter', function() {
+        this.style.transition = 'transform 100ms linear, box-shadow 100ms linear';
+      });
+      btn.addEventListener('mousemove', function(e) {
+        const r = this.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width  / 2;
+        const y = e.clientY - r.top  - r.height / 2;
+        this.style.transform = 'translate(' + (x * 0.22) + 'px,' + (y * 0.3) + 'px) rotate(' + (x * 0.04) + 'deg)';
+        this.style.boxShadow = (x * -0.12) + 'px ' + (y * -0.12 + 10) + 'px 28px rgba(196,154,46,0.45)';
+      });
+      btn.addEventListener('mouseleave', function() {
+        this.style.transition = 'transform 450ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 350ms ease';
+        this.style.transform = '';
+        this.style.boxShadow = '';
+      });
+      btn.addEventListener('mousedown', function() {
+        this.style.transform = 'scale(0.96)';
+      });
+      btn.addEventListener('mouseup', function() {
+        this.style.transform = '';
+      });
+    });
+  });
+
+  // ── Background gradient animation — mouse tracking
+  tryInit.push(function() {
+    // GHL can leave a hidden duplicate "Hero" block in the DOM (zero-size,
+    // display:none ancestor) ahead of the real one in document order, so
+    // a plain querySelector/getElementById grabs the invisible copy and the
+    // blob silently does nothing. Find the Hero section that's actually
+    // rendered (non-zero size), then scope blob/pointer lookups to its
+    // descendants — sidesteps the duplicate-id collision entirely.
+    const candidates = document.querySelectorAll('section[aria-label="Hero"]:not([data-ga-bound])');
+    let hero = null;
+    for (let i = 0; i < candidates.length; i++) {
+      if (candidates[i].offsetWidth > 0 && candidates[i].offsetHeight > 0) { hero = candidates[i]; break; }
+    }
+    if (!hero) return;
+    const blobs = hero.querySelector('.hero-ga-blobs');
+    const ptr   = hero.querySelector('.ga-pointer');
+    if (!blobs || !ptr) return;
+    hero.setAttribute('data-ga-bound', '');
+
+    // Safari detection → swap to plain blur
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      blobs.classList.add('is-safari');
+    }
+
+    // tgX/tgY are offsets from the hero CENTER so the blob starts centered
+    let curX = 0, curY = 0, tgX = 0, tgY = 0;
+
+    hero.addEventListener('mousemove', function(e) {
+      const r = hero.getBoundingClientRect();
+      tgX = (e.clientX - r.left) - r.width  * 0.5;
+      tgY = (e.clientY - r.top)  - r.height * 0.5;
+    });
+
+    // Reset to center when mouse leaves
+    hero.addEventListener('mouseleave', function() {
+      tgX = 0; tgY = 0;
+    });
+
+    (function animate() {
+      curX += (tgX - curX) / 20;
+      curY += (tgY - curY) / 20;
+      ptr.style.transform = 'translate(' + Math.round(curX) + 'px,' + Math.round(curY) + 'px)';
+      requestAnimationFrame(animate);
+    })();
+  });
+
+  // ── CTA inline form validation + submission
+  tryInit.push(function() {
+    var form  = document.getElementById('cta-form');
+    var btn   = document.getElementById('cta-submit');
+    var fnInp = document.getElementById('cta-fname');
+    var emInp = document.getElementById('cta-email');
+    var fnErr = document.getElementById('cta-fname-err');
+    var emErr = document.getElementById('cta-email-err');
+    if (!form || form.getAttribute('data-cta-form-init')) return;
+    form.setAttribute('data-cta-form-init', '1');
+
+    function showErr(el, msg) { el.style.display = 'block'; el.textContent = msg; }
+    function hideErr(el)       { el.style.display = 'none';  el.textContent = ''; }
+    function validEmail(v)     { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    fnInp.addEventListener('input', function() { hideErr(fnErr); });
+    emInp.addEventListener('input', function() { hideErr(emErr); });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var fn = fnInp.value.trim(), em = emInp.value.trim(), ok = true;
+      if (!fn) { showErr(fnErr, 'Please enter your first name.'); ok = false; }
+      if (!em) { showErr(emErr, 'Please enter your email address.'); ok = false; }
+      else if (!validEmail(em)) { showErr(emErr, 'Please enter a valid email address.'); ok = false; }
+      if (!ok) return;
+
+      btn.disabled = true; btn.style.opacity = '0.75';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:cta-spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…';
+
+      if (!document.getElementById('cta-spin-style')) {
+        var s = document.createElement('style');
+        s.id = 'cta-spin-style';
+        s.textContent = '@keyframes cta-spin{to{transform:rotate(360deg)}}';
+        document.head.appendChild(s);
+      }
+
+      if (typeof window.ghlFormSubmit === 'function') {
+        window.ghlFormSubmit({ firstName: fn, email: em },
+          function() { onCtaSuccess(btn, form); },
+          function() { onCtaSuccess(btn, form); }
+        );
+      } else {
+        setTimeout(function() { onCtaSuccess(btn, form); }, 1000);
+      }
+    });
+  });
+
+  function onCtaSuccess(btn, form) {
+    btn.disabled = false; btn.style.opacity = '';
+    btn.innerHTML = 'Blueprint Sent! Check Your Inbox <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    btn.style.background = '#1A6860';
+    form.reset();
+  }
+
+  // Run immediately for whatever's already in the DOM, then keep retrying
+  // as GHL continues inserting/rendering blocks (each init is bound-guarded
+  // so re-running is safe and won't double-attach listeners/observers).
+  runAll();
+  window.addEventListener('load', runAll);
+  new MutationObserver(runAll).observe(document.documentElement, { childList: true, subtree: true });
+})();
+
+// ── GHL form submission handler
+// Submits directly to the GHL native form endpoint so leads are captured
+// in GHL CRM and the "Form Submitted" workflow trigger fires automatically.
+window.ghlFormSubmit = function(data, onSuccess, onError) {
+  fetch('https://api.leadconnectorhq.com/widget/form/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formId:     'gGemfVaraJs2VMrWflaq',
+      location_id:'WhlzY3YgCCxkolh0Axbk',
+      first_name: data.firstName,
+      email:      data.email
+    })
+  })
+  .then(function(r) { if (r.ok) { onSuccess && onSuccess(); } else { onError && onError(); } })
+  .catch(function()  { onError && onError(); });
+};
+</script>

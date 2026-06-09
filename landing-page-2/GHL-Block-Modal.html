@@ -1,0 +1,150 @@
+<!-- GHL Custom HTML — Blueprint Modal Overlay
+     Place this block BEFORE Block 10 (JavaScript).
+     Triggered by any element with class js-blueprint-modal. -->
+
+<div
+  id="blueprint-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="bm-heading"
+  style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:1rem;"
+>
+  <!-- Backdrop -->
+  <div id="bm-backdrop" style="position:absolute;inset:0;background:rgba(10,15,20,0.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);"></div>
+
+  <!-- Card -->
+  <div
+    id="bm-card"
+    style="position:relative;z-index:1;background:#0e1a1f;border:1px solid rgba(196,154,46,0.25);border-radius:12px;width:100%;max-width:480px;padding:1.5rem 1.5rem 0.75rem;box-shadow:0 32px 80px rgba(0,0,0,0.65),0 0 0 1px rgba(196,154,46,0.06);max-height:92vh;overflow-y:auto;transform:translateY(16px);opacity:0;transition:transform 280ms cubic-bezier(0.34,1.56,0.64,1),opacity 220ms ease;"
+  >
+    <!-- Close button -->
+    <button
+      id="bm-close"
+      aria-label="Close"
+      style="position:absolute;top:1rem;right:1rem;background:rgba(244,239,230,0.08);border:1px solid rgba(244,239,230,0.12);color:rgba(244,239,230,0.55);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.125rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:background 160ms ease,color 160ms ease;z-index:2;"
+      onmouseover="this.style.background='rgba(244,239,230,0.16)';this.style.color='rgba(244,239,230,0.9)'"
+      onmouseout="this.style.background='rgba(244,239,230,0.08)';this.style.color='rgba(244,239,230,0.55)'"
+    >✕</button>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:1rem;padding-right:1.5rem;">
+      <p style="font-family:'Inter',sans-serif;font-size:0.6875rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:#c49a2e;margin:0 0 0.4rem;">Free Download</p>
+      <h2 id="bm-heading" style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#f4efe6;line-height:1.2;margin:0;">
+        Get Your Free <em style="font-style:italic;color:#c49a2e;">Blueprint</em>
+      </h2>
+    </div>
+
+    <!-- GHL native form iframe -->
+    <iframe
+      id="bm-ghl-iframe"
+      src="https://api.leadconnectorhq.com/widget/form/gGemfVaraJs2VMrWflaq"
+      style="width:100%;height:434px;border:none;border-radius:6px;display:block;"
+      title="Get Your Free Blueprint"
+    ></iframe>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  function openModal() {
+    var modal = document.getElementById('blueprint-modal');
+    var card  = document.getElementById('bm-card');
+    if (!modal) return;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (card) { card.style.transform = 'translateY(0)'; card.style.opacity = '1'; }
+        modal.style.opacity = '1';
+      });
+    });
+  }
+
+  function closeModal() {
+    var modal = document.getElementById('blueprint-modal');
+    var card  = document.getElementById('bm-card');
+    if (!modal) return;
+    if (card) { card.style.transform = 'translateY(16px)'; card.style.opacity = '0'; }
+    setTimeout(function () {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 240);
+  }
+
+  function init() {
+    var modal    = document.getElementById('blueprint-modal');
+    var backdrop = document.getElementById('bm-backdrop');
+    var closeBtn = document.getElementById('bm-close');
+    if (!modal || modal.getAttribute('data-bm-init')) return;
+    modal.setAttribute('data-bm-init', '1');
+    modal.style.opacity = '0';
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+    });
+    bindTriggers();
+  }
+
+  function bindTriggers() {
+    document.querySelectorAll('.js-blueprint-modal:not([data-bm-trigger-bound])').forEach(function (el) {
+      el.setAttribute('data-bm-trigger-bound', '1');
+      el.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+    });
+  }
+
+  /* ── Listen for GHL form submission via postMessage ── */
+  var successShown = false;
+  window.addEventListener('message', function (event) {
+    if (successShown) return;
+    var modal = document.getElementById('blueprint-modal');
+    if (!modal || modal.style.display !== 'flex') return;
+
+    var data = event.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (e) { return; }
+    }
+    if (!data || typeof data !== 'object') return;
+
+    /* GHL can send different message shapes depending on version */
+    var isSubmit =
+      data.type === 'form_submitted'     ||
+      data.type === 'FORM_SUBMITTED'     ||
+      data.type === 'gtm.formSubmit'     ||
+      data.event === 'form_submitted'    ||
+      data.event === 'form-submitted'    ||
+      data.message === 'form_submitted'  ||
+      (data.formId && data.formId === 'gGemfVaraJs2VMrWflaq');
+
+    if (isSubmit) {
+      successShown = true;
+      setTimeout(function () { onModalSuccess(); }, 400);
+    }
+  });
+
+  function onModalSuccess() {
+    var card = document.getElementById('bm-card');
+    if (!card) return;
+    card.innerHTML =
+      '<button id="bm-close-success" aria-label="Close" style="position:absolute;top:1rem;right:1rem;background:rgba(244,239,230,0.08);border:1px solid rgba(244,239,230,0.12);color:rgba(244,239,230,0.55);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.125rem;line-height:1;display:flex;align-items:center;justify-content:center;">✕</button>' +
+      '<div style="text-align:center;padding:1.5rem 0.5rem 1rem;">' +
+        '<div style="width:56px;height:56px;border-radius:50%;background:rgba(26,104,96,0.18);border:1.5px solid rgba(42,138,128,0.45);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">' +
+          '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2a8a80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>' +
+        '</div>' +
+        '<h3 style="font-family:\'Playfair Display\',serif;font-weight:700;font-size:1.375rem;color:#f4efe6;margin:0 0 0.75rem;line-height:1.2;">You\'re All Set!</h3>' +
+        '<p style="font-size:0.9375rem;color:rgba(244,239,230,0.75);line-height:1.65;margin:0 0 0.5rem;">Your free <em style="font-style:italic;color:#C49A2E;">Blueprint</em> is on its way.</p>' +
+        '<p style="font-size:0.875rem;color:rgba(244,239,230,0.55);line-height:1.6;margin:0 0 1.5rem;"><strong style="color:rgba(244,239,230,0.85);">Check your inbox now</strong> — if you don\'t see it in a few minutes, check your spam or promotions folder.</p>' +
+        '<p style="font-size:0.7rem;color:rgba(244,239,230,0.25);letter-spacing:0.02em;">We\'ll never share your information.</p>' +
+      '</div>';
+    document.getElementById('bm-close-success').addEventListener('click', closeModal);
+    setTimeout(function () { closeModal(); }, 6000);
+  }
+
+  init();
+  window.addEventListener('load', function () { init(); bindTriggers(); });
+  new MutationObserver(function () { init(); bindTriggers(); })
+    .observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>
